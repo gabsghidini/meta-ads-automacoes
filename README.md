@@ -21,6 +21,8 @@ O monitor de saldo usa somente a biblioteca padrão do Python.
 
 ## Comece por aqui
 
+**Usa Windows? Siga o [guia completo para Windows](WINDOWS.md), da instalação ao agendamento automático.**
+
 1. Abra a pasta da automação desejada e siga seu `README.md`.
 2. Copie `.env.example` para `.env` e preencha suas credenciais.
 3. Nos relatórios, use `--dry-run` para gerar as imagens sem enviar mensagens. No saldo, use `--no-wa`.
@@ -52,7 +54,10 @@ As imagens usam formatação em reais (`R$`); utilize os relatórios com contas 
 
 ## Agendar para rodar sozinho
 
-Siga o [tutorial de cron para iniciantes](CRON.md): ele mostra como abrir o Terminal, testar as automações, configurar os horários, salvar o agendamento, conferir os logs e pausar os envios. Inclui instruções para Mac e Ubuntu/Debian.
+- **Windows:** [instalação e Agendador de Tarefas, passo a passo](WINDOWS.md).
+- **Mac e Linux:** [tutorial de cron para iniciantes](CRON.md).
+
+Os dois guias explicam como testar, definir horários, consultar os logs e pausar os envios.
 
 O computador precisa estar ligado e acordado no horário, com acesso à internet. Para os envios, o Evolution também precisa estar disponível e conectado ao WhatsApp.
 

@@ -6,7 +6,7 @@ O cron é o agendador do sistema: você informa o horário e o comando, e ele ex
 
 O computador ou servidor precisa estar **ligado e acordado no horário**. Se estiver desligado ou dormindo, não conte com o envio ao ligar depois. Para rodar todos os dias sem depender do seu notebook, use um servidor Linux que permaneça ligado.
 
-No Windows, estes comandos não funcionam diretamente no PowerShell. Este guia cobre Mac e servidores Linux; o Windows tem seu próprio Agendador de Tarefas.
+**Usa Windows? Siga o [tutorial do Agendador de Tarefas para Windows](WINDOWS.md).** Os comandos de cron deste guia são para Mac e Linux.
 
 ## 1. Prepare as automações antes de agendar
 

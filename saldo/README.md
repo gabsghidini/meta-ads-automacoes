@@ -6,6 +6,8 @@ Esta pasta funciona sozinha e usa somente a biblioteca padrão do Python 3.10+.
 
 ## Instalação
 
+**No Windows, siga o [guia de instalação e agendamento para Windows](../WINDOWS.md).** Os comandos abaixo são para Mac/Linux.
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -43,4 +45,5 @@ Veja o [guia geral](../README.md) para agendamento e configuração.
 
 ## Agendar para rodar sozinho
 
-Veja o [tutorial de cron para iniciantes](../CRON.md), com os comandos de agendamento, como salvar, testar, consultar os logs e pausar esta automação.
+- **Windows:** [guia do Agendador de Tarefas](../WINDOWS.md). O arquivo `executar-windows.cmd` desta pasta executa a automação e grava a saída em `cron.log`; aceita os mesmos argumentos do script Python.
+- **Mac/Linux:** [tutorial de cron para iniciantes](../CRON.md).
