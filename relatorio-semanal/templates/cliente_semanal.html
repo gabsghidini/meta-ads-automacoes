@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>{{ css }}</style>
+</head>
+<body>
+<div class="folha">
+
+  <div class="topo">
+    <div>
+      <div class="marca">{{ marca }} <span>/ TRÁFEGO SEMANAL</span></div>
+      <h1 class="titulo">{{ conta.nome }}</h1>
+      <div class="subtitulo">conta {{ conta.id }}</div>
+    </div>
+    <div class="data">
+      semana consolidada
+      <strong>{{ semana_extenso }}</strong>
+      comparado com {{ semana_anterior_extenso }}
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="rotulo">Investimento semanal</div>
+      <div class="valor menor">{{ conta.atual.spend|moeda }}</div>
+      <div class="pe {{ conta.delta_spend|classe_volume }}">{{ conta.delta_spend|seta_kpi }}</div>
+    </div>
+    <div class="kpi destaque">
+      <div class="rotulo">{{ conta.rotulo_resultado }}</div>
+      <div class="valor">{{ conta.atual.resultado|inteiro }}</div>
+      <div class="pe {{ conta.delta_resultado|classe_volume }}">{{ conta.delta_resultado|seta_kpi }}</div>
+    </div>
+    <div class="kpi">
+      <div class="rotulo">{{ conta.rotulo_custo }}</div>
+      <div class="valor menor">{{ conta.atual.custo_resultado|custo }}</div>
+      <div class="pe {{ conta.delta_custo|classe_custo }}">{{ conta.delta_custo|seta_kpi }}</div>
+    </div>
+    <div class="kpi">
+      <div class="rotulo">CTR Médio</div>
+      <div class="valor menor">{{ conta.atual.ctr|pct }}</div>
+      <div class="pe">{{ conta.atual.clicks|inteiro }} cliques (CPC {{ conta.atual.cpc|moeda }})</div>
+    </div>
+  </div>
+
+
+
+  {% if conta.outros_tipos %}
+  <div class="secao">Outras frentes na mesma conta (semana)</div>
+  <div class="frentes">
+    {% for o in conta.outros_tipos %}
+    <span><b>{{ o.resultado|inteiro }}</b> {{ o.rotulo|lower }} · {{ o.spend|moeda }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="secao">Campanhas com investimento na semana</div>
+  {% if conta.campanhas_semana %}
+    {% for c in conta.campanhas_semana %}
+    <div class="campanha">
+      <div class="nome">{{ c.nome }}</div>
+      <div class="obj">{{ c.rotulo_resultado }}</div>
+      <div class="numeros">
+        <span>investido <b>{{ c.atual.spend|moeda }}</b></span>
+        <span>{{ c.rotulo_resultado|lower }} <b>{{ c.atual.resultado|inteiro }}</b></span>
+        <span>{{ c.rotulo_custo|lower }} <b>{{ c.atual.custo_resultado|custo }}</b></span>
+        <span>CTR <b>{{ c.atual.ctr|pct }}</b></span>
+      </div>
+      <div class="barra"><i style="width: {{ c.fatia }}%"></i></div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="vazio">Nenhuma campanha gastou nesta semana consolidada.</div>
+  {% endif %}
+
+  <div class="secao" style="margin-top: 40px">Comparativo ({{ dias }} dias)</div>
+  <table class="janelas">
+    <colgroup>
+      <col style="width: 28%">
+      <col style="width: 16%">
+      <col style="width: 14%">
+      <col style="width: 16%">
+      <col style="width: 13%">
+      <col style="width: 13%">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Janela</th>
+        <th>Investido</th>
+        <th>{{ conta.rotulo_resultado }}</th>
+        <th>{{ conta.rotulo_custo }}</th>
+        <th>CTR</th>
+        <th>Cliques</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="cliente">Semana Atual</td>
+        <td>{{ conta.atual.spend|moeda }}</td>
+        <td>{{ conta.atual.resultado|inteiro }}</td>
+        <td>{{ conta.atual.custo_resultado|custo }}</td>
+        <td>{{ conta.atual.ctr|pct }}</td>
+        <td>{{ conta.atual.clicks|inteiro }}</td>
+      </tr>
+      <tr>
+        <td class="cliente">Semana Anterior</td>
+        <td>{{ conta.anterior.spend|moeda }}</td>
+        <td>{{ conta.anterior.resultado|inteiro }}</td>
+        <td>{{ conta.anterior.custo_resultado|custo }}</td>
+        <td>{{ conta.anterior.ctr|pct }}</td>
+        <td>{{ conta.anterior.clicks|inteiro }}</td>
+      </tr>
+      <tr>
+        <td class="cliente" style="font-weight: 700">Variação</td>
+        <td class="{{ conta.delta_spend|classe_volume }}">{{ conta.delta_spend|seta_curta }}</td>
+        <td class="{{ conta.delta_resultado|classe_volume }}">{{ conta.delta_resultado|seta_curta }}</td>
+        <td class="{{ conta.delta_custo|classe_custo }}">{{ conta.delta_custo|seta_curta }}</td>
+        <td>{{ conta.delta_ctr|seta_curta }}</td>
+        <td>{{ conta.delta_clicks|seta_curta }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="rodape">
+    <span>{{ marca }} · Relatório de anúncios · Fechamento Semanal</span>
+    <span>gerado {{ gerado_em }}</span>
+  </div>
+
+</div>
+</body>
+</html>

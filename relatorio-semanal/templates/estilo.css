@@ -1,0 +1,115 @@
+/* Estilos dos relatorios em imagem. Cor so carrega significado:
+   ciano = marca, verde/vermelho = direcao do numero. */
+
+:root {
+  --bg: #0B0E14;
+  --card: rgba(255, 255, 255, 0.035);
+  --card-borda: rgba(255, 255, 255, 0.07);
+  --cyan: #0096FF;
+  --blue: #0047AB;
+  --vermelho: #DC2626;
+  --verde: #22C55E;
+  --texto: #F3F5F9;
+  --texto-2: #8B94A6;
+  --texto-3: #5A6273;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1080px;
+  background: var(--bg);
+  color: var(--texto);
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+.folha {
+  position: relative;
+  padding: 56px 56px 48px;
+  overflow: hidden;
+}
+
+/* brilho de marca atras do cabecalho */
+.folha::before {
+  content: "";
+  position: absolute;
+  top: -320px; left: -180px;
+  width: 760px; height: 620px;
+  background: radial-gradient(circle, rgba(0, 150, 255, 0.16), transparent 62%);
+  pointer-events: none;
+}
+
+.topo { position: relative; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+.marca { font-size: 19px; font-weight: 700; letter-spacing: 0.22em; color: var(--cyan); }
+.marca span { color: var(--texto-3); font-weight: 600; }
+.titulo { font-size: 46px; font-weight: 700; letter-spacing: -0.025em; margin-top: 10px; line-height: 1.05; }
+.subtitulo { font-size: 17px; color: var(--texto-2); margin-top: 8px; }
+.data { text-align: right; font-size: 15px; color: var(--texto-2); line-height: 1.5; }
+.data strong { display: block; font-size: 24px; color: var(--texto); font-weight: 600; }
+
+/* faixa de KPIs */
+.kpis { display: flex; gap: 16px; margin-bottom: 36px; }
+.kpi {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--card-borda);
+  border-radius: 18px;
+  padding: 24px 24px 22px;
+}
+.kpi .rotulo { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--texto-3); font-weight: 600; }
+.kpi .valor { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; margin-top: 12px; line-height: 1; }
+.kpi .valor.menor { font-size: 32px; }
+.kpi .pe { font-size: 14px; color: var(--texto-2); margin-top: 12px; }
+.kpi.destaque { border-color: rgba(0, 150, 255, 0.38); background: rgba(0, 150, 255, 0.07); }
+
+.sobe { color: var(--verde); }
+.cai { color: var(--vermelho); }
+.neutro { color: var(--texto-3); }
+
+/* alertas */
+.alertas { border: 1px solid rgba(220, 38, 38, 0.4); background: rgba(220, 38, 38, 0.08); border-radius: 18px; padding: 22px 26px; margin-bottom: 36px; }
+.alertas h2 { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #FF7B7B; margin-bottom: 14px; }
+.alerta { display: flex; gap: 14px; font-size: 17px; padding: 7px 0; }
+.alerta b { font-weight: 600; min-width: 250px; }
+.alerta span { color: var(--texto-2); }
+
+/* tabela de contas */
+.secao { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-3); font-weight: 600; margin-bottom: 16px; }
+table { width: 100%; border-collapse: collapse; }
+thead th { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-3); font-weight: 600; text-align: right; padding: 0 0 14px; }
+thead th:first-child, thead th:nth-child(2) { text-align: left; }
+tbody td { padding: 17px 0; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 19px; text-align: right; }
+tbody td:first-child { text-align: left; color: var(--texto-3); font-size: 15px; width: 46px; }
+tbody td.cliente { text-align: left; font-weight: 600; }
+tbody tr.parada td.cliente { color: var(--vermelho); }
+tbody td .marcador { display: block; font-size: 13px; color: var(--texto-3); font-weight: 400; margin-top: 3px; }
+tbody td.delta { font-size: 15px; width: 108px; }
+tfoot td { padding: 20px 0 0; border-top: 2px solid rgba(255, 255, 255, 0.14); font-size: 20px; font-weight: 700; text-align: right; }
+tfoot td:first-child { text-align: left; }
+
+/* campanhas do cliente */
+.campanha { border-top: 1px solid rgba(255, 255, 255, 0.06); padding: 20px 0; }
+.campanha:first-of-type { border-top: none; }
+.campanha .nome { font-size: 18px; font-weight: 600; line-height: 1.35; }
+.campanha .obj { font-size: 13px; color: var(--texto-3); margin-top: 5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.campanha .numeros { display: flex; gap: 34px; margin-top: 14px; font-size: 16px; color: var(--texto-2); }
+.campanha .numeros b { color: var(--texto); font-weight: 600; }
+.barra { height: 5px; background: rgba(255, 255, 255, 0.07); border-radius: 3px; margin-top: 14px; overflow: hidden; }
+.barra i { display: block; height: 100%; background: linear-gradient(90deg, var(--blue), var(--cyan)); border-radius: 3px; }
+
+.rodape { margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 13px; color: var(--texto-3); display: flex; justify-content: space-between; }
+.vazio { color: var(--texto-2); font-size: 17px; padding: 28px 0; }
+
+/* tabela de janelas do card de cliente: sem coluna de rank */
+table.janelas { table-layout: fixed; width: 100%; border-collapse: collapse; }
+table.janelas th, table.janelas td { padding: 14px 0 14px 18px; font-size: 18px; text-align: right; }
+table.janelas th:first-child, table.janelas td:first-child { width: 28%; padding-left: 0; font-size: 18px; color: var(--texto); text-align: left; }
+table.janelas thead th:first-child { text-align: left; }
+
+.kpi .pe.quebra { margin-top: 6px; font-size: 13px; color: var(--texto-3); }
+
+/* resultados de outro tipo dentro da mesma conta */
+.frentes { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 36px; font-size: 17px; color: var(--texto-2); }
+.frentes b { color: var(--texto); font-weight: 600; }

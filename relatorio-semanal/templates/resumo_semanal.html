@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>{{ css }}</style>
+</head>
+<body>
+<div class="folha">
+
+  <div class="topo">
+    <div>
+      <div class="marca">{{ marca }} <span>/ TRÁFEGO</span></div>
+      <h1 class="titulo">Resumo Semanal</h1>
+      <div class="subtitulo">{{ contas|length }} contas com investimento ativo na semana</div>
+    </div>
+    <div class="data">
+      semana consolidada
+      <strong>{{ semana_extenso }}</strong>
+      comparado com {{ semana_anterior_extenso }}
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="rotulo">Investimento semanal</div>
+      <div class="valor">{{ total.spend|moeda }}</div>
+      <div class="pe {{ total.delta_spend|classe_volume }}">{{ total.delta_spend|seta }} vs sem. anterior</div>
+    </div>
+    <div class="kpi destaque">
+      <div class="rotulo">Resultados na semana</div>
+      <div class="valor">{{ total.resultado|inteiro }}</div>
+      <div class="pe {{ total.delta_resultado|classe_volume }}">{{ total.delta_resultado|seta }} vs sem. anterior</div>
+      <div class="pe quebra">{{ total.quebra|join(' · ') }}</div>
+    </div>
+    <div class="kpi">
+      <div class="rotulo">Custo médio por resultado</div>
+      <div class="valor menor">{{ total.custo_resultado|custo }}</div>
+      <div class="pe {{ total.delta_custo|classe_custo }}">{{ total.delta_custo|seta }} vs sem. anterior ({{ total.custo_anterior|moeda }})</div>
+    </div>
+  </div>
+
+  {% if alertas %}
+  <div class="alertas">
+    <h2>Precisa de olho esta semana (diagnóstico de causas prováveis)</h2>
+    {% for a in alertas %}
+    <div class="alerta"><b>{{ a.nome }}</b><span>{{ a.motivos|join(' · ') }}</span></div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="secao">Contas por investimento na semana</div>
+  {% if contas %}
+  <table>
+    <thead>
+      <tr>
+        <th></th><th>Cliente</th><th>Investido</th><th>Resultados</th><th>Custo / CPL</th><th>vs Sem. Ant.</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in contas %}
+      <tr class="{{ 'parada' if c.parada else '' }}">
+        <td>{{ loop.index }}</td>
+        <td class="cliente">
+          {{ c.nome }}
+          <span class="marcador">{{ c.rotulo_resultado }}</span>
+        </td>
+        <td>{{ c.atual.spend|moeda }}</td>
+        <td>{{ c.atual.resultado|inteiro }}</td>
+        <td>{{ c.atual.custo_resultado|custo }}</td>
+        <td class="delta {{ c.delta_custo|classe_custo }}">{{ c.delta_custo|seta_curta }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">Total</td>
+        <td>{{ total.spend|moeda }}</td>
+        <td>{{ total.resultado|inteiro }}</td>
+        <td>{{ total.custo_resultado|custo }}</td>
+        <td class="delta {{ total.delta_custo|classe_custo }}">{{ total.delta_custo|seta_curta }}</td>
+      </tr>
+    </tfoot>
+  </table>
+  {% else %}
+  <div class="vazio">Nenhuma conta com investimento na janela da semana.</div>
+  {% endif %}
+
+  <div class="rodape">
+    <span>{{ marca }} · Relatório de anúncios · Fechamento Semanal</span>
+    <span>gerado {{ gerado_em }}</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+# Usa somente a biblioteca padrao do Python.

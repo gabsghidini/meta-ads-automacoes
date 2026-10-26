@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>{{ css }}</style>
+</head>
+<body>
+<div class="folha">
+
+  <div class="topo">
+    <div>
+      <div class="marca">{{ marca }} <span>/ TRÁFEGO</span></div>
+      <h1 class="titulo">{{ conta.nome }}</h1>
+      <div class="subtitulo">conta {{ conta.id }}</div>
+    </div>
+    <div class="data">
+      referente a
+      <strong>{{ dia_extenso }}</strong>
+      comparado com {{ anteontem_curto }}
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="rotulo">Investimento</div>
+      <div class="valor menor">{{ conta.ontem.spend|moeda }}</div>
+      <div class="pe">{{ conta.delta_spend|seta }} vs anteontem</div>
+    </div>
+    <div class="kpi destaque">
+      <div class="rotulo">{{ conta.rotulo_resultado }}</div>
+      <div class="valor">{{ conta.ontem.resultado|inteiro }}</div>
+      <div class="pe">{{ conta.delta_resultado|seta }} vs anteontem</div>
+    </div>
+    <div class="kpi">
+      <div class="rotulo">{{ conta.rotulo_custo }}</div>
+      <div class="valor menor">{{ conta.ontem.custo_resultado|custo }}</div>
+      <div class="pe {{ conta.delta_custo|classe_custo }}">{{ conta.delta_custo|seta }} vs média de 7 dias</div>
+    </div>
+    <div class="kpi">
+      <div class="rotulo">CTR</div>
+      <div class="valor menor">{{ conta.ontem.ctr|pct }}</div>
+      <div class="pe">{{ conta.ontem.clicks|inteiro }} cliques</div>
+    </div>
+  </div>
+
+  {% if conta.motivos %}
+  <div class="alertas">
+    <h2>Precisa de olho hoje</h2>
+    <div class="alerta"><b>{{ conta.nome }}</b><span>{{ conta.motivos|join(' · ') }}</span></div>
+  </div>
+  {% endif %}
+
+  {% if conta.outros_tipos %}
+  <div class="secao">Outras frentes na mesma conta</div>
+  <div class="frentes">
+    {% for o in conta.outros_tipos %}
+    <span><b>{{ o.resultado|inteiro }}</b> {{ o.rotulo|lower }} · {{ o.spend|moeda }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="secao">Campanhas com investimento ontem</div>
+  {% if conta.campanhas_ontem %}
+    {% for c in conta.campanhas_ontem %}
+    <div class="campanha">
+      <div class="nome">{{ c.nome }}</div>
+      <div class="obj">{{ c.rotulo_resultado }}</div>
+      <div class="numeros">
+        <span>investido <b>{{ c.ontem.spend|moeda }}</b></span>
+        <span>{{ c.rotulo_resultado|lower }} <b>{{ c.ontem.resultado|inteiro }}</b></span>
+        <span>{{ c.rotulo_custo|lower }} <b>{{ c.ontem.custo_resultado|custo }}</b></span>
+        <span>CTR <b>{{ c.ontem.ctr|pct }}</b></span>
+      </div>
+      <div class="barra"><i style="width: {{ c.fatia }}%"></i></div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="vazio">Nenhuma campanha gastou ontem nesta conta.</div>
+  {% endif %}
+
+  <div class="secao" style="margin-top: 40px">Últimos 7 dias</div>
+  <table class="janelas">
+    <thead><tr><th>Janela</th><th>Investido</th><th>{{ conta.rotulo_resultado }}</th><th>{{ conta.rotulo_custo }}</th><th>CTR</th></tr></thead>
+    <tbody>
+      <tr><td class="cliente">Ontem</td><td>{{ conta.ontem.spend|moeda }}</td><td>{{ conta.ontem.resultado|inteiro }}</td><td>{{ conta.ontem.custo_resultado|custo }}</td><td>{{ conta.ontem.ctr|pct }}</td></tr>
+      <tr><td class="cliente">Anteontem</td><td>{{ conta.anteontem.spend|moeda }}</td><td>{{ conta.anteontem.resultado|inteiro }}</td><td>{{ conta.anteontem.custo_resultado|custo }}</td><td>{{ conta.anteontem.ctr|pct }}</td></tr>
+      <tr><td class="cliente">Média diária (7d)</td><td>{{ conta.media.spend_dia|moeda }}</td><td>{{ conta.media.resultado_dia|numero }}</td><td>{{ conta.media.custo_resultado|custo }}</td><td>{{ conta.media.ctr|pct }}</td></tr>
+    </tbody>
+  </table>
+
+  <div class="rodape">
+    <span>{{ marca }} · Relatório de anúncios</span>
+    <span>gerado {{ gerado_em }}</span>
+  </div>
+
+</div>
+</body>
+</html>
