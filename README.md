@@ -50,19 +50,11 @@ As contas são descobertas a partir do acesso do token. Use um token restrito ao
 
 As imagens usam formatação em reais (`R$`); utilize os relatórios com contas BRL. O saldo mostra a moeda de cada conta, e seus limites são aplicados nessa moeda.
 
-## Agendamento opcional
+## Agendar para rodar sozinho
 
-Os horários usam o fuso do computador ou servidor. Os scripts não alteram seu cron automaticamente.
-Instale as dependências e configure os três `.env` antes de usar o exemplo abaixo.
-Substitua `/caminho/meta-ads-automacoes` pelo caminho absoluto da sua cópia e adicione as linhas com `crontab -e`:
+Siga o [tutorial de cron para iniciantes](CRON.md): ele mostra como abrir o Terminal, testar as automações, configurar os horários, salvar o agendamento, conferir os logs e pausar os envios. Inclui instruções para Mac e Ubuntu/Debian.
 
-```cron
-0 8 * * * /caminho/meta-ads-automacoes/relatorio-diario/.venv/bin/python /caminho/meta-ads-automacoes/relatorio-diario/main.py >> /caminho/meta-ads-automacoes/relatorio-diario/cron.log 2>&1
-30 8 * * 5 /caminho/meta-ads-automacoes/relatorio-semanal/.venv/bin/python /caminho/meta-ads-automacoes/relatorio-semanal/semanal.py >> /caminho/meta-ads-automacoes/relatorio-semanal/cron.log 2>&1
-0 9 * * * /caminho/meta-ads-automacoes/saldo/.venv/bin/python /caminho/meta-ads-automacoes/saldo/check.py >> /caminho/meta-ads-automacoes/saldo/cron.log 2>&1
-```
-
-O computador precisa estar ligado, com acesso à internet; para os envios, o Evolution também precisa estar disponível e conectado ao WhatsApp.
+O computador precisa estar ligado e acordado no horário, com acesso à internet. Para os envios, o Evolution também precisa estar disponível e conectado ao WhatsApp.
 
 ## Arquivos locais e privacidade
 

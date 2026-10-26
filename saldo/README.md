@@ -40,3 +40,7 @@ Com `ALWAYS_NOTIFY=0`, o aviso por saldo baixo acima do limite urgente não disp
 O campo `balance` de uma conta com cartão representa fatura, não crédito disponível. Quando a API não informa o tipo de financiamento ou saldo pré-pago de forma reconhecível, o relatório marca a situação como desconhecida; confira a conta no Gerenciador de Anúncios.
 
 Veja o [guia geral](../README.md) para agendamento e configuração.
+
+## Agendar para rodar sozinho
+
+Veja o [tutorial de cron para iniciantes](../CRON.md), com os comandos de agendamento, como salvar, testar, consultar os logs e pausar esta automação.

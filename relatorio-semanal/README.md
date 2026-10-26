@@ -56,3 +56,7 @@ python semanal.py --sem-resumo
 ```
 
 O período é inclusivo e comparado com o mesmo número de dias imediatamente anteriores. `--inicio` e `--fim` devem ser usados juntos. `--sem-resumo` mantém apenas os cards individuais.
+
+## Agendar para rodar sozinho
+
+Veja o [tutorial de cron para iniciantes](../CRON.md), com os comandos de agendamento, como salvar, testar, consultar os logs e pausar esta automação.

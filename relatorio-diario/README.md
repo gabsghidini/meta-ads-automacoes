@@ -47,3 +47,7 @@ O resultado de cada campanha considera a meta de otimização do conjunto, o eve
 O modo sem envio ainda exige o token e acesso à Meta. A versão da API pode ser alterada em `META_API_VERSION`.
 
 Veja o [guia geral](../README.md) para agendamento e configuração das credenciais.
+
+## Agendar para rodar sozinho
+
+Veja o [tutorial de cron para iniciantes](../CRON.md), com os comandos de agendamento, como salvar, testar, consultar os logs e pausar esta automação.
